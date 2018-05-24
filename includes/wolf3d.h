@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/22 18:15:52 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/23 18:29:35 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,16 @@
 # include <pthread.h>
 # include <fcntl.h>
 
-# define WIDTH 770
-# define HEIGHT 770
+# define WIDTH 1280
+# define HEIGHT 720
 # define WINDOW_NAME "Window"
+
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+# define Q 12
+# define E 14
 
 typedef struct	s_map
 {
@@ -33,17 +40,34 @@ typedef struct	s_map
 
 typedef struct	s_player
 {
-	int			x;
-	int			y;
-	int			direction;
+	double		posx;
+	double		posy;
+	double		dirx;
+	double		diry;
+	double		planex;
+	double		planey;
+	double		movespeed;
+	double		rotspeed;
 }				t_player;
+
+typedef struct	s_image
+{
+	void		*image;
+	void		*ptr;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_image;
 
 typedef struct	s_world
 {
 	t_player	player;
 	t_map		map;
+	t_image		image;
 	void		*mlx;
 	void		*window;
+	double		time;
+	double		oldtime;
 }				t_world;
 
 //hooks
@@ -57,5 +81,14 @@ void			error(char *str);
 
 //reader
 void			read_map(t_world *w, char *file);
+
+//image
+void			init_image(t_world *w);
+void			img_pixel_put(t_image *img, int x, int y, int color);
+void			clear_image(t_image *image);
+
+//draw
+void			draw(t_world *w);
+void			place_crosshair(t_world *w);
 
 #endif

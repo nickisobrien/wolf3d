@@ -4,7 +4,7 @@ RM = /bin/rm -f
 FLAGS = -Wall -Wextra -Werror
 
 # wolf3d
-FILES = main reader hooks error
+FILES = main reader hooks error image draw
 INCLUDE = -I ./includes/
 HEADER = ./includes/wolf3d.h
 SRC_DIR := ./srcs/
