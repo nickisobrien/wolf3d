@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/23 18:29:35 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/23 23:51:56 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define TEX_COUNT 3
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
 # define WINDOW_NAME "Window"
 
 # define W 13
@@ -30,6 +33,8 @@
 # define D 2
 # define Q 12
 # define E 14
+
+# define SKY "./resources/textures/sky.xpm"
 
 typedef struct	s_map
 {
@@ -50,6 +55,16 @@ typedef struct	s_player
 	double		rotspeed;
 }				t_player;
 
+typedef struct	s_texture
+{
+	int			width;
+	int			height;
+	void		*texture;
+	int			bpp;
+	int			stride;
+	int			endian;
+}				t_texture;
+
 typedef struct	s_image
 {
 	void		*image;
@@ -64,6 +79,8 @@ typedef struct	s_world
 	t_player	player;
 	t_map		map;
 	t_image		image;
+	t_texture	texture[TEX_COUNT];
+	t_image		sky;
 	void		*mlx;
 	void		*window;
 	double		time;
@@ -90,5 +107,8 @@ void			clear_image(t_image *image);
 //draw
 void			draw(t_world *w);
 void			place_crosshair(t_world *w);
+
+//textures
+void			load_textures(t_world *w);
 
 #endif

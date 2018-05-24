@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 12:49:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/23 18:30:46 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/24 00:07:20 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,28 @@ void	vertical_line(t_world *w, int x, int drawstart, int drawend, int color)
 	}
 }
 
+// static uint32_t	get_texture_color(t_world *w, int texture, int x, int y)
+// {
+
+// }
+
+static int		get_wall_color(t_world *w, int mapx, int mapy)
+{
+	switch(w->map.map[mapx][mapy])
+	{
+		case 1:
+			return(0xf44242); //red
+		case 2:
+			return(0x05af10); //green
+		case 3:
+			return(0x0518af); //blue
+		case 4:
+			return(0xffffff); //white
+		default:
+			return(0xefff1c); //yellow
+	}
+}
+
 void	draw(t_world *w)
 {
 	// (void)w;
@@ -28,6 +50,7 @@ void	draw(t_world *w)
 	double camerax;
 	double raydirx;
 	double raydiry;
+	// uint32_t buffer[w->map.rows][w->map.cols];
 
 	x = -1;
 	while (++x < WIDTH)
@@ -117,32 +140,46 @@ void	draw(t_world *w)
 			drawend = HEIGHT - 1;
 
 		//choose wall color
-		int color;
-		switch(w->map.map[mapx][mapy])
-		{
-			case 1:
-				color = 0xf44242;
-				break; //red
-			case 2:
-				color = 0x05af10;
-				break; //green
-			case 3:
-				color = 0x0518af;
-				break; //blue
-			case 4:
-				color = 0xffffff;
-				break; //white
-			default:
-				color = 0xefff1c;
-				break; //yellow
-		}
+		// //get wall number
+		// int	texnum;
+		// texnum = w->map.map[mapx][mapy] - 1;
+
+		// //calculate value of wallX
+		// double wallx; //where exactly the wall was hit
+		// if (side == 0)
+		// 	wallx = w->player.posy + perpwalldist * raydiry;
+		// else
+		// 	wallx = w->player.posx + perpwalldist * raydirx;
+		// wallx -= floor((wallx));
+
+		// //x coordinate on the texture
+		// int texx = (int)(wallx * (double)(TEX_WIDTH));
+		// if(side == 0 && raydirx > 0)
+		// 	texx = TEX_WIDTH - texx - 1;
+		// if(side == 1 && raydiry < 0)
+		// 	texx = TEX_WIDTH - texx - 1;
+
+		// color = get_texture_color()
+		int color = get_wall_color(w, mapx, mapy);
 
 		//give x and y sides different brightness
-		if (side == 1) {color = color / 2;}
+		if (side == 1)
+			color = color / 2;
 
 		//draw the pixels of the stripe as a vertical line
+		// for(int y = drawstart; y<drawend; y++)
+		// {
+		// 	int d = y * 256 - HEIGHT * 128 + lineheight * 128;  //256 and 128 factors to avoid floats
+		// 	// TODO: avoid the division to speed this up
+		// 	int texy = ((d * TEX_HEIGHT) / lineheight) / 256;
+		// 	uint32_t color = get
+		// 	uint32_t color = (int)(w->texture[texnum].texture[TEX_HEIGHT * texy + texx]);
+		// 	//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+		// 	if(side == 1) color = (color >> 1) & 8355711;
+		// 		buffer[y][x] = color;
+		// }
 		vertical_line(w, x, drawstart, drawend, color);
-	}
+    }
 	// double  //the constant value is in squares/second
     // double rotspeed = frametime * 3.0; //the constant value is in radians/second
 

@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/23 18:29:15 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/23 23:33:43 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	init(t_world *w, char *file)
 	read_map(w, file);
 	init_image(w);
 	init_player(w);
+	load_textures(w);
 	draw(w);
 	mlx_put_image_to_window(w->mlx, w->window, w->image.image, 0, 0);
 	place_crosshair(w);
