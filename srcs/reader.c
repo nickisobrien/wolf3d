@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:07:13 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/22 18:29:47 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/24 12:37:29 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ static void	malloc_map(t_world *w)
 	}
 }
 
-static void	print_map(t_world *w)
-{
-	int i;
-	int j;
+// static void	print_map(t_world *w)
+// {
+// 	int i;
+// 	int j;
 
-	i = -1;
-	while (++i < w->map.rows)
-	{
-		j = -1;
-		while (++j < w->map.cols)
-			ft_printf("%d ", w->map.map[i][j]);
-		ft_printf("\n");
-	}
-}
+// 	i = -1;
+// 	while (++i < w->map.rows)
+// 	{
+// 		j = -1;
+// 		while (++j < w->map.cols)
+// 			ft_printf("%d ", w->map.map[i][j]);
+// 		ft_printf("\n");
+// 	}
+// }
 
 void	read_map(t_world *w, char *file)
 {
@@ -78,5 +78,5 @@ void	read_map(t_world *w, char *file)
 				w->map.map[i][++counter] = line[j] - '0';
 		ft_strdel(&line);
 	}
-	print_map(w);
+	// print_map(w);
 }

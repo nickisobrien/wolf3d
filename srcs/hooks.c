@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:26:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/23 18:29:26 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/24 18:19:28 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			key_pressed_hook(int key, t_world *w)
 	if (key == 53)
 		exit(0);
 	clear_image(&w->image);
-	draw(w);
+	draw_gen_texs(w);
 	mlx_put_image_to_window(w->mlx, w->window, w->image.image, 0, 0);
 	place_crosshair(w);
 	return (0);
