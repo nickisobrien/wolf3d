@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/24 18:19:22 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 16:02:55 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,28 @@
 
 static void	init_player(t_world *w)
 {
-	w->player.posx = 22;
-	w->player.posy = 12;
+	w->player.posx = 4;
+	w->player.posy = 4;
 	w->player.dirx = 0.2;
 	w->player.diry = 0.2;
 	w->player.planex = 0.0;
 	w->player.planey = 0.66;
 	w->player.movespeed = 1;
-	w->player.rotspeed = 0.25;
+	w->player.rotspeed = 0.2;
 }
 
 static void	init(t_world *w, char *file)
 {
 	w->mlx = mlx_init();
 	w->window = mlx_new_window(w->mlx, WIDTH, HEIGHT, WINDOW_NAME);
+	w->mode = 0;
 	read_map(w, file);
 	init_image(w);
 	init_player(w);
 	load_textures(w);
-	draw_gen_texs(w);
+	init_gen_texs(w);
+	draw_colors(w);
+	mlx_put_image_to_window(w->mlx, w->window, w->texture[0].texture, 0, 0);
 	mlx_put_image_to_window(w->mlx, w->window, w->image.image, 0, 0);
 	place_crosshair(w);
 }

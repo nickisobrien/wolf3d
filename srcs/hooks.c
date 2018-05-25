@@ -6,27 +6,20 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:26:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/24 18:19:28 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 15:52:53 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-void		place_crosshair(t_world *w)
-{
-	mlx_pixel_put(w->mlx, w->window, WIDTH/2-1, HEIGHT/2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH/2-2, HEIGHT/2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH/2+1, HEIGHT/2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH/2+2, HEIGHT/2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH/2, HEIGHT/2-1, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH/2, HEIGHT/2-2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH/2, HEIGHT/2+1, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH/2, HEIGHT/2+2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH/2, HEIGHT/2, 0xffffff);
-}
-
 int			key_pressed_hook(int key, t_world *w)
 {
+	if (key == 46)
+	{
+		w->mode++;
+		if (w->mode > 1)
+			w->mode = 0;
+	}
 	if (key == S)
 	{
 		if (!w->map.map[(int)(w->player.posx - w->player.dirx * w->player.movespeed)][(int)(w->player.posy)])
@@ -43,7 +36,6 @@ int			key_pressed_hook(int key, t_world *w)
 	}
 	if (key == A)
 	{
-		//both camera direction and camera plane must be rotated
 		double olddirx = w->player.dirx;
 		w->player.dirx = w->player.dirx * cos(-w->player.rotspeed) - w->player.diry * sin(-w->player.rotspeed);
 		w->player.diry = olddirx * sin(-w->player.rotspeed) + w->player.diry * cos(-w->player.rotspeed);
@@ -53,7 +45,6 @@ int			key_pressed_hook(int key, t_world *w)
 	}
 	if (key == D)
 	{
-		//both camera direction and camera plane must be rotated
 		double olddirx = w->player.dirx;
 		w->player.dirx = w->player.dirx * cos(w->player.rotspeed) - w->player.diry * sin(w->player.rotspeed);
 		w->player.diry = olddirx * sin(w->player.rotspeed) + w->player.diry * cos(w->player.rotspeed);
@@ -64,7 +55,10 @@ int			key_pressed_hook(int key, t_world *w)
 	if (key == 53)
 		exit(0);
 	clear_image(&w->image);
-	draw_gen_texs(w);
+	if (!w->mode)
+		draw_colors(w);
+	else if (w->mode == 1)
+		draw_gen_texs(w);
 	mlx_put_image_to_window(w->mlx, w->window, w->image.image, 0, 0);
 	place_crosshair(w);
 	return (0);

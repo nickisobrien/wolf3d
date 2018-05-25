@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/24 18:19:43 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 15:53:40 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define TEX_COUNT 3
+# define TEX_COUNT 4
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define WINDOW_NAME "Window"
@@ -34,13 +34,23 @@
 # define Q 12
 # define E 14
 
-typedef union		u_color
+typedef struct	s_draw
 {
-	uint8_t		b;
-	uint8_t		g;
-	uint8_t		r;
-	uint8_t		a;
-}					t_color;
+	double camerax;
+	double raydirx;
+	double raydiry;
+	int mapx;
+	int mapy;
+	double deltadistx;
+	double deltadisty;
+	double perpwalldist;
+	double sidedistx;
+	double sidedisty;
+	int side;
+	//what direction to step in x or y-direction (either +1 or -1)
+	int stepx;
+	int stepy;
+}				t_draw;
 
 typedef struct	s_map
 {
@@ -87,10 +97,12 @@ typedef struct	s_world
 	t_image		image;
 	t_texture	texture[TEX_COUNT];
 	t_image		sky;
+	int			mode;
 	void		*mlx;
 	void		*window;
 	double		time;
 	double		oldtime;
+	int			gen_texture[8][TEX_WIDTH * TEX_HEIGHT];
 }				t_world;
 
 //hooks
@@ -110,11 +122,17 @@ void			init_image(t_world *w);
 void			img_pixel_put(t_image *img, int x, int y, int color);
 void			clear_image(t_image *image);
 
-//draw
-void			draw(t_world *w);
+//draw general
+void			setup_dda(t_world *w, t_draw *d, int x);
+void			perform_dda(t_world *w, t_draw *d);
 void			place_crosshair(t_world *w);
+
+//draw colors
+void			draw_colors(t_world *w);
+
 //draw generated textures
 void			draw_gen_texs(t_world *w);
+void			init_gen_texs(t_world *w);
 
 //textures
 void			load_textures(t_world *w);

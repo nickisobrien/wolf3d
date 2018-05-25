@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 23:20:38 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/24 18:24:52 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 15:55:48 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	load_textures(t_world *w)
 {
 	int i;
 	char *str;
-	static char	*files[] = {"brick.xpm", "grass.xpm", "metal.xpm"};
+	static char	*files[] = {"sky.xpm", "brick.xpm", "grass.xpm", "metal.xpm"};
 
 	i = -1;
 	while (++i < TEX_COUNT)
@@ -25,12 +25,12 @@ void	load_textures(t_world *w)
 		if (!(w->texture[i].texture = mlx_xpm_file_to_image(w->mlx, str, &w->texture[i].width, &w->texture[i].height)))
 		{
 			ft_strdel(&str);
-			error("Texture failure");
+			error("Texture failure 1");
 		}
 		if (!(mlx_get_data_addr(&w->texture[i].texture, &w->texture[i].bpp, &w->texture[i].stride, &w->texture[i].endian)))
 		{
 			ft_strdel(&str);
-			error("Texture failure");
+			error("Texture failure 2");
 		}
 		ft_strdel(&str);
 	}
