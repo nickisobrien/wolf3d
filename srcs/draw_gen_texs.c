@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 12:49:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 15:44:13 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:04:38 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	init_gen_texs(t_world *w)
 		while (++y < TEX_HEIGHT)
 		{
 			int xorcolor = (x * 256 / TEX_WIDTH) ^ (y * 256 / TEX_HEIGHT);
-			//int xcolor = x * 256 / texWidth;
 			int ycolor = y * 256 / TEX_HEIGHT;
 			int xycolor = y * 128 / TEX_HEIGHT + x * 128 / TEX_WIDTH;
 			w->gen_texture[0][TEX_WIDTH * y + x] = 65536 * 254 * (x != y && x != TEX_WIDTH - y); //flat red texture with black cross

@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 16:02:55 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:03:40 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	init(t_world *w, char *file)
 	load_textures(w);
 	init_gen_texs(w);
 	draw_colors(w);
-	mlx_put_image_to_window(w->mlx, w->window, w->texture[0].texture, 0, 0);
 	mlx_put_image_to_window(w->mlx, w->window, w->image.image, 0, 0);
 	place_crosshair(w);
 }

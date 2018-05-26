@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 15:53:40 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:03:29 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct	s_texture
 	int			width;
 	int			height;
 	void		*texture;
+	void		*ptr;
 	int			bpp;
 	int			stride;
 	int			endian;

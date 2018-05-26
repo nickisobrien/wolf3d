@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 23:20:38 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 15:55:48 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:01:03 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ void	load_textures(t_world *w)
 			ft_strdel(&str);
 			error("Texture failure 1");
 		}
-		if (!(mlx_get_data_addr(&w->texture[i].texture, &w->texture[i].bpp, &w->texture[i].stride, &w->texture[i].endian)))
-		{
-			ft_strdel(&str);
-			error("Texture failure 2");
-		}
+		w->texture[i].ptr = mlx_get_data_addr(w->texture[i].texture, &w->texture[i].bpp, &w->texture[i].stride, &w->texture[i].endian);
+		w->texture[i].bpp /= 8;
 		ft_strdel(&str);
 	}
 }
