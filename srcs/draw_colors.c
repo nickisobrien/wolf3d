@@ -6,18 +6,18 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 12:49:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:59:23 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 18:21:05 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-static void	vertical_line(t_world *w, int x, int drawstart, int drawend, int color)
+static void	vertical_line(t_world *w, int x, t_draw d, int color)
 {
-	while (drawstart < drawend)
+	while (d.drawstart < d.drawend)
 	{
-		img_pixel_put(&w->image, x, drawstart, color);
-		drawstart++;
+		img_pixel_put(&w->image, x, d.drawstart, color);
+		d.drawstart++;
 	}
 }
 
@@ -58,6 +58,6 @@ void		draw_colors(t_world *w)
 		color = get_wall_color(w, d.mapx, d.mapy);
 		if (d.side == 1)
 			color = color / 2;
-		vertical_line(w, x, d.drawstart, d.drawend, color);
-    }
+		vertical_line(w, x, d, color);
+	}
 }

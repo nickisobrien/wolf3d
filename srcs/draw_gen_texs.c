@@ -6,16 +6,19 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 12:49:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:55:53 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 18:35:15 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-void	init_gen_texs(t_world *w)
+void		init_gen_texs(t_world *w)
 {
 	int x;
 	int y;
+	int xorcolor;
+	int ycolor;
+	int xycolor;
 
 	x = -1;
 	while (++x < TEX_WIDTH)
@@ -23,26 +26,26 @@ void	init_gen_texs(t_world *w)
 		y = -1;
 		while (++y < TEX_HEIGHT)
 		{
-			int xorcolor = (x * 256 / TEX_WIDTH) ^ (y * 256 / TEX_HEIGHT);
-			int ycolor = y * 256 / TEX_HEIGHT;
-			int xycolor = y * 128 / TEX_HEIGHT + x * 128 / TEX_WIDTH;
-			w->gen_texture[0][TEX_WIDTH * y + x] = 65536 * 254 * (x != y && x != TEX_WIDTH - y); //flat red texture with black cross
-			w->gen_texture[1][TEX_WIDTH * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
-			w->gen_texture[2][TEX_WIDTH * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
-			w->gen_texture[3][TEX_WIDTH * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
-			w->gen_texture[4][TEX_WIDTH * y + x] = 256 * xorcolor; //xor green
-			w->gen_texture[5][TEX_WIDTH * y + x] = 65536 * 192 * (x % 16 && y % 16); //red bricks
-			w->gen_texture[6][TEX_WIDTH * y + x] = 65536 * ycolor; //red gradient
-			w->gen_texture[7][TEX_WIDTH * y + x] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
+			xorcolor = (x * 256 / TEX_WIDTH) ^ (y * 256 / TEX_HEIGHT);
+			ycolor = y * 256 / TEX_HEIGHT;
+			xycolor = y * 128 / TEX_HEIGHT + x * 128 / TEX_WIDTH;
+			w->gen_texture[0][TEX_WIDTH * y + x] = 65536 * 254 * (x != y && x != TEX_WIDTH - y);
+			w->gen_texture[1][TEX_WIDTH * y + x] = xycolor + 256 * xycolor + 65536 * xycolor;
+			w->gen_texture[2][TEX_WIDTH * y + x] = 256 * xycolor + 65536 * xycolor;
+			w->gen_texture[3][TEX_WIDTH * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor;
+			w->gen_texture[4][TEX_WIDTH * y + x] = 256 * xorcolor;
+			w->gen_texture[5][TEX_WIDTH * y + x] = 65536 * 192 * (x % 16 && y % 16);
+			w->gen_texture[6][TEX_WIDTH * y + x] = 65536 * ycolor;
+			w->gen_texture[7][TEX_WIDTH * y + x] = 128 + 256 * 128 + 65536 * 128;
 		}
 	}
 }
 
 static void	draw(t_world *w, t_draw *d, int x, int texnum, int texx)
 {
-	int c;
-	int texy;
-	uint32_t color;
+	int			c;
+	int			texy;
+	uint32_t	color;
 
 	while (d->drawstart < d->drawend)
 	{
@@ -56,13 +59,13 @@ static void	draw(t_world *w, t_draw *d, int x, int texnum, int texx)
 	}
 }
 
-void	draw_gen_texs(t_world *w)
+void		draw_gen_texs(t_world *w)
 {
-	int x;
-	t_draw d;
-	int	texnum;
-	int texx;
-	double wallx;
+	int		x;
+	t_draw	d;
+	int		texnum;
+	int		texx;
+	double	wallx;
 
 	x = -1;
 	while (++x < WIDTH)
@@ -81,5 +84,5 @@ void	draw_gen_texs(t_world *w)
 		if (d.side == 1 && d.raydiry < 0)
 			texx = TEX_WIDTH - texx - 1;
 		draw(w, &d, x, texnum, texx);
-    }
+	}
 }

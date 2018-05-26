@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 18:11:13 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 18:11:35 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	init_player(t_world *w)
 	w->player.planex = 0.0;
 	w->player.planey = 0.66;
 	w->player.movespeed = 1.0;
-	w->player.rotspeed = 0.001;
+	w->player.rotspeed = 0.2;
 }
 
 static void	init(t_world *w, char *file)
