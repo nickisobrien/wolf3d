@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:38:50 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:47:37 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct	s_draw
 	double sidedistx;
 	double sidedisty;
 	int side;
-	//what direction to step in x or y-direction (either +1 or -1)
 	int stepx;
 	int stepy;
 	int lineheight;

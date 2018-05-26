@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:26:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:05:02 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 18:03:54 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int			key_pressed_hook(int key, t_world *w)
 {
+	double	olddirx;
+	double	oldplanex;
+
 	if (key == 46)
 	{
 		w->mode++;
@@ -36,19 +39,19 @@ int			key_pressed_hook(int key, t_world *w)
 	}
 	if (key == A)
 	{
-		double olddirx = w->player.dirx;
+		olddirx = w->player.dirx;
 		w->player.dirx = w->player.dirx * cos(-w->player.rotspeed) - w->player.diry * sin(-w->player.rotspeed);
 		w->player.diry = olddirx * sin(-w->player.rotspeed) + w->player.diry * cos(-w->player.rotspeed);
-		double oldplanex = w->player.planex;
+		oldplanex = w->player.planex;
 		w->player.planex = w->player.planex * cos(-w->player.rotspeed) - w->player.planey * sin(-w->player.rotspeed);
 		w->player.planey = oldplanex * sin(-w->player.rotspeed) + w->player.planey * cos(-w->player.rotspeed);
 	}
 	if (key == D)
 	{
-		double olddirx = w->player.dirx;
+		olddirx = w->player.dirx;
 		w->player.dirx = w->player.dirx * cos(w->player.rotspeed) - w->player.diry * sin(w->player.rotspeed);
 		w->player.diry = olddirx * sin(w->player.rotspeed) + w->player.diry * cos(w->player.rotspeed);
-		double oldplanex = w->player.planex;
+		oldplanex = w->player.planex;
 		w->player.planex = w->player.planex * cos(w->player.rotspeed) - w->player.planey * sin(w->player.rotspeed);
 		w->player.planey = oldplanex * sin(w->player.rotspeed) + w->player.planey * cos(w->player.rotspeed);
 	}

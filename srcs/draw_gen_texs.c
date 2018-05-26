@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 12:49:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:14:29 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:55:53 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	init_gen_texs(t_world *w)
 {
 	int x;
 	int y;
-	//generate some textures
+
 	x = -1;
 	while (++x < TEX_WIDTH)
 	{
@@ -38,48 +38,48 @@ void	init_gen_texs(t_world *w)
 	}
 }
 
+static void	draw(t_world *w, t_draw *d, int x, int texnum, int texx)
+{
+	int c;
+	int texy;
+	uint32_t color;
+
+	while (d->drawstart < d->drawend)
+	{
+		c = d->drawstart * 256 - HEIGHT * 128 + d->lineheight * 128;
+		texy = ((c * TEX_HEIGHT) / d->lineheight) / 256;
+		color = w->gen_texture[texnum][TEX_HEIGHT * texy + texx];
+		if (d->side == 1)
+			color = (color >> 1) & 8355711;
+		img_pixel_put(&w->image, x, d->drawstart, color);
+		d->drawstart++;
+	}
+}
+
 void	draw_gen_texs(t_world *w)
 {
 	int x;
 	t_draw d;
+	int	texnum;
+	int texx;
+	double wallx;
 
 	x = -1;
 	while (++x < WIDTH)
 	{
 		setup_dda(w, &d, x);
 		perform_dda(w, &d);
-
-		//choose wall color
-		// //get wall number
-		int	texnum;
 		texnum = w->map.map[d.mapx][d.mapy] - 1;
-
-		//calculate value of wallX
-		double wallx; //where exactly the wall was hit
 		if (d.side == 0)
 			wallx = w->player.posy + d.perpwalldist * d.raydiry;
 		else
 			wallx = w->player.posx + d.perpwalldist * d.raydirx;
 		wallx -= floor((wallx));
-
-		//x coordinate on the texture
-		int texx = (int)(wallx * (double)(TEX_WIDTH));
+		texx = (int)(wallx * (double)(TEX_WIDTH));
 		if (d.side == 0 && d.raydirx > 0)
 			texx = TEX_WIDTH - texx - 1;
 		if (d.side == 1 && d.raydiry < 0)
 			texx = TEX_WIDTH - texx - 1;
-
-		// draw the pixels of the stripe as a vertical line
-		for(int y = d.drawstart; y < d.drawend; y++)
-		{
-			int c = y * 256 - HEIGHT * 128 + d.lineheight * 128;  //256 and 128 factors to avoid floats
-			// TODO: avoid the division to speed this up
-			int texy = ((c * TEX_HEIGHT) / d.lineheight) / 256;
-			uint32_t color = w->gen_texture[texnum][TEX_HEIGHT * texy + texx];
-			//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-			if (d.side == 1)
-				color = (color >> 1) & 8355711;
-			img_pixel_put(&w->image, x, y, color);
-		}
+		draw(w, &d, x, texnum, texx);
     }
 }
