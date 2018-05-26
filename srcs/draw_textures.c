@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 23:20:38 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:01:03 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:07:03 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	load_textures(t_world *w)
 {
 	int i;
 	char *str;
-	static char	*files[] = {"sky.xpm", "brick.xpm", "grass.xpm", "metal.xpm"};
+	static char	*files[] = {"brick.xpm", "grass.xpm", "metal.xpm"};
 
 	i = -1;
 	while (++i < TEX_COUNT)

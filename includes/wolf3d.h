@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:03:29 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:11:58 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define TEX_COUNT 4
+# define TEX_COUNT 3
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define WINDOW_NAME "Window"
@@ -50,6 +50,9 @@ typedef struct	s_draw
 	//what direction to step in x or y-direction (either +1 or -1)
 	int stepx;
 	int stepy;
+	int lineheight;
+	int drawstart;
+	int drawend;
 }				t_draw;
 
 typedef struct	s_map

@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 12:49:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:04:38 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:14:29 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,6 @@ void	draw_gen_texs(t_world *w)
 		setup_dda(w, &d, x);
 		perform_dda(w, &d);
 
-		//Calculate height of line to draw on screen
-		int lineheight = (int)(HEIGHT / d.perpwalldist);
-
-		//calculate lowest and highest pixel to fill in current stripe
-		int drawstart = -lineheight / 2 + HEIGHT / 2;
-		if (drawstart < 0)
-			drawstart = 0;
-		int drawend = lineheight / 2 + HEIGHT / 2;
-		if (drawend >= HEIGHT)
-			drawend = HEIGHT - 1;
-
 		//choose wall color
 		// //get wall number
 		int	texnum;
@@ -81,11 +70,11 @@ void	draw_gen_texs(t_world *w)
 			texx = TEX_WIDTH - texx - 1;
 
 		// draw the pixels of the stripe as a vertical line
-		for(int y = drawstart; y < drawend; y++)
+		for(int y = d.drawstart; y < d.drawend; y++)
 		{
-			int c = y * 256 - HEIGHT * 128 + lineheight * 128;  //256 and 128 factors to avoid floats
+			int c = y * 256 - HEIGHT * 128 + d.lineheight * 128;  //256 and 128 factors to avoid floats
 			// TODO: avoid the division to speed this up
-			int texy = ((c * TEX_HEIGHT) / lineheight) / 256;
+			int texy = ((c * TEX_HEIGHT) / d.lineheight) / 256;
 			uint32_t color = w->gen_texture[texnum][TEX_HEIGHT * texy + texx];
 			//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 			if (d.side == 1)

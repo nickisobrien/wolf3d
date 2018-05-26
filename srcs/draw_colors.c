@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 12:49:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:03:19 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:13:26 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,12 @@ void	draw_colors(t_world *w)
 		setup_dda(w, &d, x);
 		perform_dda(w, &d);
 
-		//Calculate height of line to draw on screen
-		int lineheight = (int)(HEIGHT / d.perpwalldist);
-
-		//calculate lowest and highest pixel to fill in current stripe
-		int drawstart = -lineheight / 2 + HEIGHT / 2;
-		if (drawstart < 0)
-			drawstart = 0;
-		int drawend = lineheight / 2 + HEIGHT / 2;
-		if (drawend >= HEIGHT)
-			drawend = HEIGHT - 1;
-
 		//choose wall color
 		int color = get_wall_color(w, d.mapx, d.mapy);
 
 		//give x and y sides different brightness
 		if (d.side == 1)
 			color = color / 2;
-		vertical_line(w, x, drawstart, drawend, color);
+		vertical_line(w, x, d.drawstart, d.drawend, color);
     }
 }

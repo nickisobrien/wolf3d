@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 19:01:22 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 15:53:00 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:16:03 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	setup_dda(t_world *w, t_draw *d, int x)
 	d->mapx = (int)w->player.posx;
 	d->mapy = (int)w->player.posy;
 
-	//length of ray from one x or y-d.side to next x or y-side
+	//length of ray from one x or y-d->side to next x or y-side
 	d->deltadistx = fabs(1 / d->raydirx);
 	d->deltadisty = fabs(1 / d->raydiry);
 
@@ -50,6 +50,25 @@ void	setup_dda(t_world *w, t_draw *d, int x)
 	}
 }
 
+static void	draw_dda(t_world *w, t_draw *d)
+{
+	//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
+	if (d->side == 0)
+		d->perpwalldist = (d->mapx - w->player.posx + (1 - d->stepx) / 2) / d->raydirx;
+	else
+		d->perpwalldist = (d->mapy - w->player.posy + (1 - d->stepy) / 2) / d->raydiry;
+	//Calculate height of line to draw on screen
+	d->lineheight = (int)(HEIGHT / d->perpwalldist);
+
+	//calculate lowest and highest pixel to fill in current stripe
+	d->drawstart = -d->lineheight / 2 + HEIGHT / 2;
+	if (d->drawstart < 0)
+		d->drawstart = 0;
+	d->drawend = d->lineheight / 2 + HEIGHT / 2;
+	if (d->drawend >= HEIGHT)
+		d->drawend = HEIGHT - 1;
+}
+
 void	perform_dda(t_world *w, t_draw *d)
 {
 	//perform DDA
@@ -73,11 +92,7 @@ void	perform_dda(t_world *w, t_draw *d)
 		if (w->map.map[d->mapx][d->mapy] > 0)
 			hit = 1;
 	}
-	//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-	if (d->side == 0)
-		d->perpwalldist = (d->mapx - w->player.posx + (1 - d->stepx) / 2) / d->raydirx;
-	else
-		d->perpwalldist = (d->mapy - w->player.posy + (1 - d->stepy) / 2) / d->raydiry;
+	draw_dda(w, d);
 }
 
 void		place_crosshair(t_world *w)
