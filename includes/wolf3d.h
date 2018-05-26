@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:11:58 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/25 17:38:50 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,10 @@ typedef struct	s_player
 	double		rotspeed;
 }				t_player;
 
-typedef struct	s_texture
+typedef struct	s_image
 {
 	int			width;
 	int			height;
-	void		*texture;
-	void		*ptr;
-	int			bpp;
-	int			stride;
-	int			endian;
-}				t_texture;
-
-typedef struct	s_image
-{
 	void		*image;
 	void		*ptr;
 	int			bpp;
@@ -99,7 +90,7 @@ typedef struct	s_world
 	t_player	player;
 	t_map		map;
 	t_image		image;
-	t_texture	texture[TEX_COUNT];
+	t_image		texture[TEX_COUNT];
 	t_image		sky;
 	int			mode;
 	void		*mlx;
