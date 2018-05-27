@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 18:11:35 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 16:30:45 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,45 @@ static void	init_player(t_world *w)
 	w->player.rotspeed = 0.2;
 }
 
+void		place_minimap(t_world *w)
+{
+	int x;
+	int y;
+	int dim;
+	int xoff;
+	int yoff;
+
+	if (!w->map.open)
+	{
+		dim = MINIMAP_DIM;
+		xoff = MINIMAP_OFFSET;
+		yoff = MINIMAP_OFFSET;
+	}
+	else
+	{
+		dim = WIDTH > HEIGHT ? HEIGHT * 0.8 : WIDTH * 0.8;
+		xoff = WIDTH / 2 - dim / 2;
+		yoff = HEIGHT / 2 - dim / 2;
+	}
+
+	y = -1;
+	while (++y < dim)
+	{
+		x = -1;
+		while (++x < dim)
+		{
+			if ((int)(x / (int)(dim / 24) >= w->map.cols || (int)(y / (int)(dim / 24)) >= w->map.rows))
+				continue ;
+			if ((int)w->player.posy == (int)(y / (int)(dim / 24)) && (int)w->player.posx == (int)(x / (int)(dim / 24)))
+				img_pixel_put(&w->image, x + xoff, y + yoff, 0);
+			else if (w->map.map[x / (int)(dim / 24)][(int)(y / (int)(dim / 24))])
+				img_pixel_put(&w->image, x + xoff, y + yoff, 0x424242);
+			else
+				img_pixel_put(&w->image, x + xoff, y + yoff, 0xffffff);
+		}
+	}
+}
+
 static void	init(t_world *w, char *file)
 {
 	w->mlx = mlx_init();
@@ -33,10 +72,10 @@ static void	init(t_world *w, char *file)
 	init_image(w);
 	init_player(w);
 	load_textures(w);
-	init_gen_texs(w);
 	draw_colors(w);
-	mlx_put_image_to_window(w->mlx, w->window, w->image.image, 0, 0);
 	place_crosshair(w);
+	place_minimap(w);
+	mlx_put_image_to_window(w->mlx, w->window, w->image.image, 0, 0);
 }
 
 int			main(int argc, char **argv)

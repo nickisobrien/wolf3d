@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:26:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 18:31:46 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 16:17:38 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ int			key_pressed_hook(int key, t_world *w)
 		w->mode++;
 		if (w->mode > 1)
 			w->mode = 0;
+	}
+	if (key == 48)
+	{
+		if (w->map.open)
+			w->map.open = 0;
+		else
+			w->map.open = 1;
 	}
 	if (key == S)
 	{
@@ -61,9 +68,10 @@ int			key_pressed_hook(int key, t_world *w)
 	if (!w->mode)
 		draw_colors(w);
 	else if (w->mode == 1)
-		draw_gen_texs(w);
-	mlx_put_image_to_window(w->mlx, w->window, w->image.image, 0, 0);
+		draw_textures(w);
 	place_crosshair(w);
+	place_minimap(w);
+	mlx_put_image_to_window(w->mlx, w->window, w->image.image, 0, 0);
 	return (0);
 }
 

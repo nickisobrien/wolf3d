@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 17:47:37 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 16:23:32 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define TEX_COUNT 3
+# define TEX_COUNT 12
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
+# define MINIMAP_DIM 128
+# define MINIMAP_OFFSET 32
 # define WINDOW_NAME "Window"
 
 # define W 13
@@ -56,6 +58,7 @@ typedef struct	s_draw
 
 typedef struct	s_map
 {
+	int			open;
 	int			rows;
 	int			cols;
 	int			**map;
@@ -78,7 +81,7 @@ typedef struct	s_image
 	int			width;
 	int			height;
 	void		*image;
-	void		*ptr;
+	char		*ptr;
 	int			bpp;
 	int			size_line;
 	int			endian;
@@ -120,15 +123,14 @@ void			clear_image(t_image *image);
 void			setup_dda(t_world *w, t_draw *d, int x);
 void			perform_dda(t_world *w, t_draw *d);
 void			place_crosshair(t_world *w);
+void			place_minimap(t_world *w);
 
 //draw colors
 void			draw_colors(t_world *w);
 
-//draw generated textures
-void			draw_gen_texs(t_world *w);
-void			init_gen_texs(t_world *w);
 
-//textures
+//draw textures
+void			draw_textures(t_world *w);
 void			load_textures(t_world *w);
 
 #endif

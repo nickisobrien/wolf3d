@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/24 19:01:22 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 18:29:38 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 15:54:19 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@ void		perform_dda(t_world *w, t_draw *d)
 
 void		place_crosshair(t_world *w)
 {
-	mlx_pixel_put(w->mlx, w->window, WIDTH / 2 - 1, HEIGHT / 2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH / 2 - 2, HEIGHT / 2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH / 2 + 1, HEIGHT / 2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH / 2 + 2, HEIGHT / 2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH / 2, HEIGHT / 2 - 1, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH / 2, HEIGHT / 2 - 2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH / 2, HEIGHT / 2 + 1, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH / 2, HEIGHT / 2 + 2, 0xffffff);
-	mlx_pixel_put(w->mlx, w->window, WIDTH / 2, HEIGHT / 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2 - 1, HEIGHT / 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2 - 2, HEIGHT / 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2 + 1, HEIGHT / 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2 + 2, HEIGHT / 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2, HEIGHT / 2 - 1, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2, HEIGHT / 2 - 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2, HEIGHT / 2 + 1, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2, HEIGHT / 2 + 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2, HEIGHT / 2, 0xffffff);
 }
