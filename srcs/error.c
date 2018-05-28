@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:51:09 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/23 21:40:57 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 15:49:06 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	usage(void)
 {
-	ft_printf("Usage: \n");
+	ft_printf("Usage: ./wolf3d map.w3d\n");
 	exit(0);
 }
 
@@ -28,4 +28,12 @@ void	error(char *str)
 {
 	ft_printf("%s\n", str);
 	exit(-1);
+}
+
+void	display_controls(void)
+{
+	ft_printf("Move: WASD\n");
+	ft_printf("Toggle Weapon: E\n");
+	ft_printf("Toggle Map: TAB\n");
+	ft_printf("Toggle Textures: M\n");
 }

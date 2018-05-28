@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 23:20:38 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 18:42:00 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 16:15:53 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		load_textures(t_world *w)
 	char		*str;
 	static char	*files[TEX_COUNT] = {"brick.xpm", "grass.xpm", "metal.xpm",
 	"roots.xpm", "plank.xpm", "pyrite.xpm", "sand.xpm", "sandy.xpm",
-	"serpentine.xpm", "slate.xpm", "sulphur.xpm", "water.xpm"};
+	"serpentine.xpm", "slate.xpm", "sulphur.xpm"};
 
 	i = -1;
 	while (++i < TEX_COUNT)
@@ -49,7 +49,7 @@ static void	draw(t_world *w, t_draw *d, int texnum, int texx)
 		c = d->drawstart * 256 - HEIGHT * 128 + d->lineheight * 128;
 		texy = ((c * TEX_HEIGHT) / d->lineheight) / 256;
 		if (texnum >= TEX_COUNT)
-			texnum = 0;
+			texnum = 1;
 		color = get_color(w->texture[texnum], texy, texx);
 		if (d->side == 1)
 			color = (color >> 1) & 8355711;

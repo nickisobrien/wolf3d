@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/28 14:05:58 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 15:45:05 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	init_player(t_world *w)
 
 static void	init(t_world *w, char *file)
 {
-	(void)file;
 	w->mlx = mlx_init();
 	w->window = mlx_new_window(w->mlx, WIDTH, HEIGHT, WINDOW_NAME);
 	w->mode = 0;
@@ -59,6 +58,7 @@ static void	init(t_world *w, char *file)
 	load_weapon(w);
 	place_background(w);
 	draw_calls(w);
+	display_controls();
 }
 
 void		draw_calls(t_world *w)

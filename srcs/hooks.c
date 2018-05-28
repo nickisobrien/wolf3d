@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:26:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 18:28:28 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 15:51:17 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	more_keys(int key, t_world *w)
 		if (w->mode > 1)
 			w->mode = 0;
 	}
-	if (key == S)
+	if (key == S || key == DOWN)
 	{
 		if (!w->map.map[(int)(w->player.posx - w->player.dirx *
 			w->player.movespeed)][(int)(w->player.posy)])
@@ -29,7 +29,7 @@ static void	more_keys(int key, t_world *w)
 			w->player.diry * w->player.movespeed)])
 			w->player.posy -= w->player.diry * w->player.movespeed;
 	}
-	if (key == W)
+	if (key == W || key == UP)
 	{
 		if (!w->map.map[(int)(w->player.posx + w->player.dirx *
 			w->player.movespeed)][(int)(w->player.posy)])
@@ -47,9 +47,9 @@ static void	more_keys2(int key, t_world *w)
 	double	mult;
 
 	mult = 0;
-	if (key == A)
+	if (key == A || key == LEFT)
 		mult = -1;
-	else if (key == D)
+	else if (key == D || key == RIGHT)
 		mult = 1;
 	if (mult)
 	{

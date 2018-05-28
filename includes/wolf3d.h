@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 18:52:50 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 16:16:18 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
-# define TEX_COUNT 12
+# define TEX_COUNT 11
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define MINIMAP_DIM 128
@@ -39,6 +39,10 @@
 # define M 46
 # define E 14
 # define ESC 53
+# define UP 126
+# define LEFT 123
+# define DOWN 125
+# define RIGHT 124
 
 typedef struct	s_draw
 {
@@ -124,6 +128,7 @@ int				hook_close(int key, t_world *w);
 void			invalid_map(void);
 void			usage(void);
 void			error(char *str);
+void			display_controls(void);
 
 /*
 ** reader

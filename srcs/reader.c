@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:07:13 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 19:59:37 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 16:29:36 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ void		read_map(t_world *w, char *file)
 	i = -1;
 	while (++i < w->map.rows && ft_get_next_line(fd, &line) > 0)
 	{
-		if (!line)
-			error("Line read error");
 		j = -1;
 		counter = -1;
 		while (line[++j] && counter < w->map.cols)
