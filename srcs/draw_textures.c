@@ -6,17 +6,19 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 23:20:38 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 15:18:48 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 18:16:35 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-void	load_textures(t_world *w)
+void		load_textures(t_world *w)
 {
 	int			i;
 	char		*str;
-	static char	*files[TEX_COUNT] = {"brick.xpm", "grass.xpm", "metal.xpm", "roots.xpm", "plank.xpm", "pyrite.xpm", "sand.xpm", "sandy.xpm", "serpentine.xpm", "slate.xpm", "sulphur.xpm", "water.xpm"};
+	static char	*files[TEX_COUNT] = {"brick.xpm", "grass.xpm", "metal.xpm",
+	"roots.xpm", "plank.xpm", "pyrite.xpm", "sand.xpm", "sandy.xpm",
+	"serpentine.xpm", "slate.xpm", "sulphur.xpm", "water.xpm"};
 
 	i = -1;
 	while (++i < TEX_COUNT)
@@ -36,36 +38,11 @@ void	load_textures(t_world *w)
 	}
 }
 
-static unsigned int	get_color(t_image texture, int texy, int texx)
-{
-	char *ptr;
-	unsigned int color;
-	(void)texture;
-	(void)texy;
-	(void)texx;
-
-	texx %= texture.width;
-	texy %= texture.height;
-	color = 0;
-	ptr = texture.ptr;
-	ptr += texy * texture.size_line + texx * texture.bpp;
-	if (texy < texture.height && texx < texture.width)
-	{
-		color += (ptr[2] & 0xFF) << 16;
-		color += (ptr[1] & 0xFF) << 8;
-		color += *ptr;
-	}
-	return (color);
-}
-
 static void	draw(t_world *w, t_draw *d, int x, int texnum, int texx)
 {
 	int				c;
 	int				texy;
 	unsigned int	color;
-	(void)texx;
-	(void)texy;
-	(void)texnum;
 
 	while (d->drawstart < d->drawend)
 	{

@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 16:23:32 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 18:19:18 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@
 # define D 2
 # define Q 12
 # define E 14
+# define TAB 48
+# define M 46
+# define E 14
+# define ESC 53
 
 typedef struct	s_draw
 {
@@ -74,6 +78,7 @@ typedef struct	s_player
 	double		planey;
 	double		movespeed;
 	double		rotspeed;
+	int			weapon;
 }				t_player;
 
 typedef struct	s_image
@@ -93,7 +98,7 @@ typedef struct	s_world
 	t_map		map;
 	t_image		image;
 	t_image		texture[TEX_COUNT];
-	t_image		sky;
+	t_image		weapon[5];
 	int			mode;
 	void		*mlx;
 	void		*window;
@@ -101,6 +106,9 @@ typedef struct	s_world
 	double		oldtime;
 	int			gen_texture[8][TEX_WIDTH * TEX_HEIGHT];
 }				t_world;
+
+//main
+void			draw_calls(t_world *w);
 
 //hooks
 int				key_pressed_hook(int key, t_world *w);
@@ -122,8 +130,11 @@ void			clear_image(t_image *image);
 //draw general
 void			setup_dda(t_world *w, t_draw *d, int x);
 void			perform_dda(t_world *w, t_draw *d);
+
+//extra draws
 void			place_crosshair(t_world *w);
 void			place_minimap(t_world *w);
+void			place_background(t_world *w);
 
 //draw colors
 void			draw_colors(t_world *w);
@@ -132,5 +143,13 @@ void			draw_colors(t_world *w);
 //draw textures
 void			draw_textures(t_world *w);
 void			load_textures(t_world *w);
+
+//helpers
+unsigned int	get_color(t_image texture, int texy, int texx);
+
+//weapon
+void			place_weapon(t_world *w, int index);
+void			load_weapon(t_world *w);
+void			run_weapon_animation(t_world *w);
 
 #endif

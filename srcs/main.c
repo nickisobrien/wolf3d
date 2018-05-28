@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 16:30:45 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 18:18:50 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,45 +22,7 @@ static void	init_player(t_world *w)
 	w->player.planey = 0.66;
 	w->player.movespeed = 1.0;
 	w->player.rotspeed = 0.2;
-}
-
-void		place_minimap(t_world *w)
-{
-	int x;
-	int y;
-	int dim;
-	int xoff;
-	int yoff;
-
-	if (!w->map.open)
-	{
-		dim = MINIMAP_DIM;
-		xoff = MINIMAP_OFFSET;
-		yoff = MINIMAP_OFFSET;
-	}
-	else
-	{
-		dim = WIDTH > HEIGHT ? HEIGHT * 0.8 : WIDTH * 0.8;
-		xoff = WIDTH / 2 - dim / 2;
-		yoff = HEIGHT / 2 - dim / 2;
-	}
-
-	y = -1;
-	while (++y < dim)
-	{
-		x = -1;
-		while (++x < dim)
-		{
-			if ((int)(x / (int)(dim / 24) >= w->map.cols || (int)(y / (int)(dim / 24)) >= w->map.rows))
-				continue ;
-			if ((int)w->player.posy == (int)(y / (int)(dim / 24)) && (int)w->player.posx == (int)(x / (int)(dim / 24)))
-				img_pixel_put(&w->image, x + xoff, y + yoff, 0);
-			else if (w->map.map[x / (int)(dim / 24)][(int)(y / (int)(dim / 24))])
-				img_pixel_put(&w->image, x + xoff, y + yoff, 0x424242);
-			else
-				img_pixel_put(&w->image, x + xoff, y + yoff, 0xffffff);
-		}
-	}
+	w->player.weapon = 0;
 }
 
 static void	init(t_world *w, char *file)
@@ -72,8 +34,22 @@ static void	init(t_world *w, char *file)
 	init_image(w);
 	init_player(w);
 	load_textures(w);
-	draw_colors(w);
+	load_weapon(w);
+	place_background(w);
+	draw_calls(w);
+}
+
+void		draw_calls(t_world *w)
+{
+	clear_image(&w->image);
+	place_background(w);
+	if (!w->mode)
+		draw_colors(w);
+	else if (w->mode == 1)
+		draw_textures(w);
 	place_crosshair(w);
+	if (w->player.weapon)
+		place_weapon(w, 0);
 	place_minimap(w);
 	mlx_put_image_to_window(w->mlx, w->window, w->image.image, 0, 0);
 }
