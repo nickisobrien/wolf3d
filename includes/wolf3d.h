@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 18:19:18 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 18:52:50 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,23 @@
 
 typedef struct	s_draw
 {
-	double camerax;
-	double raydirx;
-	double raydiry;
-	int mapx;
-	int mapy;
-	double deltadistx;
-	double deltadisty;
-	double perpwalldist;
-	double sidedistx;
-	double sidedisty;
-	int side;
-	int stepx;
-	int stepy;
-	int lineheight;
-	int drawstart;
-	int drawend;
+	double		camerax;
+	double		raydirx;
+	double		raydiry;
+	int			mapx;
+	int			mapy;
+	double		deltadistx;
+	double		deltadisty;
+	double		perpwalldist;
+	double		sidedistx;
+	double		sidedisty;
+	int			side;
+	int			stepx;
+	int			stepy;
+	int			lineheight;
+	int			drawstart;
+	int			drawend;
+	int			x;
 }				t_draw;
 
 typedef struct	s_map
@@ -106,48 +107,67 @@ typedef struct	s_world
 	double		oldtime;
 	int			gen_texture[8][TEX_WIDTH * TEX_HEIGHT];
 }				t_world;
-
-//main
+/*
+** main
+*/
 void			draw_calls(t_world *w);
 
-//hooks
+/*
+** hooks
+*/
 int				key_pressed_hook(int key, t_world *w);
 int				hook_close(int key, t_world *w);
 
-//error
+/*
+** error
+*/
 void			invalid_map(void);
 void			usage(void);
 void			error(char *str);
 
-//reader
+/*
+** reader
+*/
 void			read_map(t_world *w, char *file);
 
-//image
+/*
+** image
+*/
 void			init_image(t_world *w);
 void			img_pixel_put(t_image *img, int x, int y, int color);
 void			clear_image(t_image *image);
 
-//draw general
+/*
+** draw general
+*/
 void			setup_dda(t_world *w, t_draw *d, int x);
 void			perform_dda(t_world *w, t_draw *d);
 
-//extra draws
-void			place_crosshair(t_world *w);
+/*
+** extra draws
+*/
 void			place_minimap(t_world *w);
 void			place_background(t_world *w);
 
-//draw colors
+/*
+** draw colors
+*/
 void			draw_colors(t_world *w);
 
-
-//draw textures
+/*
+** draw textures
+*/
 void			draw_textures(t_world *w);
 void			load_textures(t_world *w);
 
-//helpers
+/*
+** helpers
+*/
 unsigned int	get_color(t_image texture, int texy, int texx);
 
-//weapon
+/*
+** weapon
+*/
 void			place_weapon(t_world *w, int index);
 void			load_weapon(t_world *w);
 void			run_weapon_animation(t_world *w);

@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 23:20:38 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 18:16:35 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 18:42:00 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		load_textures(t_world *w)
 	}
 }
 
-static void	draw(t_world *w, t_draw *d, int x, int texnum, int texx)
+static void	draw(t_world *w, t_draw *d, int texnum, int texx)
 {
 	int				c;
 	int				texy;
@@ -53,7 +53,7 @@ static void	draw(t_world *w, t_draw *d, int x, int texnum, int texx)
 		color = get_color(w->texture[texnum], texy, texx);
 		if (d->side == 1)
 			color = (color >> 1) & 8355711;
-		img_pixel_put(&w->image, x, d->drawstart, color);
+		img_pixel_put(&w->image, d->x, d->drawstart, color);
 		d->drawstart++;
 	}
 }
@@ -69,6 +69,7 @@ void		draw_textures(t_world *w)
 	x = -1;
 	while (++x < WIDTH)
 	{
+		d.x = x;
 		setup_dda(w, &d, x);
 		perform_dda(w, &d);
 		texnum = w->map.map[d.mapx][d.mapy] - 1;
@@ -82,6 +83,6 @@ void		draw_textures(t_world *w)
 			texx = TEX_WIDTH - texx - 1;
 		if (d.side == 1 && d.raydiry < 0)
 			texx = TEX_WIDTH - texx - 1;
-		draw(w, &d, x, texnum, texx);
+		draw(w, &d, texnum, texx);
 	}
 }

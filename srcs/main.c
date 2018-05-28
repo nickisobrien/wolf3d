@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 18:18:50 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 18:31:17 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void		draw_calls(t_world *w)
 		draw_colors(w);
 	else if (w->mode == 1)
 		draw_textures(w);
-	place_crosshair(w);
 	if (w->player.weapon)
 		place_weapon(w, 0);
 	place_minimap(w);

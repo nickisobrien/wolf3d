@@ -6,13 +6,26 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/27 17:03:52 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 18:15:20 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 18:32:40 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-void	load_weapon(t_world *w)
+static void	place_crosshair(t_world *w)
+{
+	img_pixel_put(&w->image, WIDTH / 2 - 1, HEIGHT / 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2 - 2, HEIGHT / 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2 + 1, HEIGHT / 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2 + 2, HEIGHT / 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2, HEIGHT / 2 - 1, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2, HEIGHT / 2 - 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2, HEIGHT / 2 + 1, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2, HEIGHT / 2 + 2, 0xffffff);
+	img_pixel_put(&w->image, WIDTH / 2, HEIGHT / 2, 0xffffff);
+}
+
+void		load_weapon(t_world *w)
 {
 	int			i;
 	char		*str;
@@ -36,7 +49,7 @@ void	load_weapon(t_world *w)
 	}
 }
 
-void	place_weapon(t_world *w, int index)
+void		place_weapon(t_world *w, int index)
 {
 	int x;
 	int y;
@@ -57,4 +70,5 @@ void	place_weapon(t_world *w, int index)
 				img_pixel_put(&w->image, x + xoff, y + yoff, color);
 		}
 	}
+	place_crosshair(w);
 }
