@@ -6,16 +6,37 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 18:31:17 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 14:05:58 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
+static void	get_player_pos(t_world *w)
+{
+	int x;
+	int y;
+
+	y = -1;
+	while (++y < w->map.rows / 2)
+	{
+		x = -1;
+		while (++x < w->map.cols / 2)
+		{
+			if (!w->map.map[x][y])
+			{
+				w->player.posx = x + 0.5;
+				w->player.posy = y + 0.5;
+				return ;
+			}
+		}
+	}
+	error("No starting position for player");
+}
+
 static void	init_player(t_world *w)
 {
-	w->player.posx = 4;
-	w->player.posy = 4;
+	get_player_pos(w);
 	w->player.dirx = 0.2;
 	w->player.diry = 0.2;
 	w->player.planex = 0.0;
@@ -27,6 +48,7 @@ static void	init_player(t_world *w)
 
 static void	init(t_world *w, char *file)
 {
+	(void)file;
 	w->mlx = mlx_init();
 	w->window = mlx_new_window(w->mlx, WIDTH, HEIGHT, WINDOW_NAME);
 	w->mode = 0;

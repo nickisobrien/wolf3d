@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:07:13 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 18:25:28 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/27 19:59:37 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,23 @@ static void	malloc_map(t_world *w)
 	}
 }
 
+void		print_map(t_world *w)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < w->map.rows)
+	{
+		j = -1;
+		while (++j < w->map.cols)
+		{
+			ft_printf("%d", w->map.map[i][j]);
+		}
+		ft_printf("\n");
+	}
+}
+
 void		read_map(t_world *w, char *file)
 {
 	int		fd;
@@ -59,8 +76,12 @@ void		read_map(t_world *w, char *file)
 		j = -1;
 		counter = -1;
 		while (line[++j] && counter < w->map.cols)
+		{
 			if (ft_isdigit(line[j]))
-				w->map.map[i][++counter] = line[j] - '0';
+				w->map.map[i][++counter] = ft_atoi(line + j);
+			while (ft_isdigit(line[j]))
+				j++;
+		}
 		ft_strdel(&line);
 	}
 }

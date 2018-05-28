@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/27 16:48:58 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/27 18:48:43 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 14:06:54 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,13 @@ static void	get_minimap_pos(t_world *w, int *dim, int *xoff, int *yoff)
 	if (w->map.open)
 		*dim = WIDTH > HEIGHT ? HEIGHT * 0.8 : WIDTH * 0.8;
 	else
+	{
 		*dim = MINIMAP_DIM;
+		if (*dim < w->map.cols)
+			*dim = w->map.cols;
+		if (*dim < w->map.rows)
+			*dim = w->map.rows;
+	}
 	*xoff = w->map.open ? WIDTH / 2 - *dim / 2 : MINIMAP_OFFSET;
 	*yoff = w->map.open ? HEIGHT / 2 - *dim / 2 : MINIMAP_OFFSET;
 }
@@ -37,16 +43,15 @@ void		place_minimap(t_world *w)
 		x = -1;
 		while (++x < dim)
 		{
-			if ((int)(x / (int)(dim / 24) >= w->map.cols ||
-				(int)(y / (int)(dim / 24)) >= w->map.rows))
+			if ((int)(x / (dim / w->map.cols) >= w->map.cols ||
+				(int)(y / (dim / w->map.rows)) >= w->map.rows))
 				continue ;
-			if ((int)w->player.posy == (int)(y / (dim / 24)) &&
-				(int)w->player.posx == (int)(x / (dim / 24)))
-				img_pixel_put(&w->image, x + xoff, y + yoff, 0);
-			else if (w->map.map[x / (dim / 24)][(y / (dim / 24))])
-				img_pixel_put(&w->image, x + xoff, y + yoff, 0x424242);
+			if ((int)w->player.posx == (int)(y / (dim / w->map.rows)) && (int)w->player.posy == (int)(x / (dim / w->map.cols)))
+				img_pixel_put(&w->image, x + xoff, dim - y + yoff, 0x92f442);
+			else if (w->map.map[(y / (dim / w->map.rows))][x / (dim / w->map.cols)] > 0)//not properly drawing... might need xdim and ydmim as well
+				img_pixel_put(&w->image, x + xoff, dim - y + yoff, 0x424242);
 			else
-				img_pixel_put(&w->image, x + xoff, y + yoff, 0xffffff);
+				img_pixel_put(&w->image, x + xoff, dim - y + yoff, 0xffffff);
 		}
 	}
 }
