@@ -6,13 +6,26 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:07:13 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/29 12:58:39 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/29 13:47:45 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-static void	set_dimensions(t_world *w)
+static int	malloc_map(t_world *w)
+{
+	int	i;
+
+	if (!(w->map.map = malloc(sizeof(int *) * w->map.rows)))
+		error("Malloc error");
+	i = -1;
+	while (++i < w->map.rows)
+		if (!(w->map.map[i] = malloc(sizeof(int) * w->map.cols)))
+			error("Malloc error");
+	return (-1);
+}
+
+static int	set_dimensions(t_world *w)
 {
 	int		i;
 	char	*line;
@@ -24,18 +37,7 @@ static void	set_dimensions(t_world *w)
 		;
 	w->map.cols = ft_atoi(line + i);
 	ft_strdel(&line);
-}
-
-static void	malloc_map(t_world *w)
-{
-	int	i;
-
-	if (!(w->map.map = malloc(sizeof(int *) * w->map.rows)))
-		error("Malloc error");
-	i = -1;
-	while (++i < w->map.rows)
-		if (!(w->map.map[i] = malloc(sizeof(int) * w->map.cols)))
-			error("Malloc error");
+	return (malloc_map(w));
 }
 
 void		read_map(t_world *w)
@@ -45,16 +47,17 @@ void		read_map(t_world *w)
 	int		j;
 	int		counter;
 
-	set_dimensions(w);
-	malloc_map(w);
-	i = -1;
+	i = set_dimensions(w);
 	while (++i < w->map.rows && ft_get_next_line(w->fd, &line) > 0 && (j = -1))
 	{
 		counter = 0;
 		while (line[++j] && counter < w->map.cols)
 		{
 			if (ft_isdigit(line[j]))
-				w->map.map[i][counter++] = ft_atoi(line + j);
+			{
+				w->map.map[i][counter] = ft_atoi(line + j);
+				counter++;
+			}
 			while (ft_isdigit(line[j]))
 				j++;
 		}
