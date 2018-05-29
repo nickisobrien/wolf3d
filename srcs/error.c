@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:51:09 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/28 15:49:06 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/29 13:00:00 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	usage(void)
 {
-	ft_printf("Usage: ./wolf3d map.w3d\n");
+	ft_printf("Usage: ./wolf3d [map.w3d]\n");
 	exit(0);
 }
 

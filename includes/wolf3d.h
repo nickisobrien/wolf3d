@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/05 17:12:25 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/28 16:16:18 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/29 12:59:01 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct	s_world
 	double		time;
 	double		oldtime;
 	int			gen_texture[8][TEX_WIDTH * TEX_HEIGHT];
+	int			fd;
 }				t_world;
 /*
 ** main
@@ -133,7 +134,7 @@ void			display_controls(void);
 /*
 ** reader
 */
-void			read_map(t_world *w, char *file);
+void			read_map(t_world *w);
 
 /*
 ** image

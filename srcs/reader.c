@@ -6,22 +6,24 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:07:13 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/28 18:08:10 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/29 12:58:39 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-static void	set_dimensions(t_world *w, char *str)
+static void	set_dimensions(t_world *w)
 {
-	int	i;
+	int		i;
+	char	*line;
 
-	w->map.rows = ft_atoi(str);
+	ft_get_next_line(w->fd, &line);
+	w->map.rows = ft_atoi(line);
 	i = -1;
-	while (ft_isdigit(str[++i]))
+	while (ft_isdigit(line[++i]))
 		;
-	w->map.cols = ft_atoi(str + i);
-	ft_strdel(&str);
+	w->map.cols = ft_atoi(line + i);
+	ft_strdel(&line);
 }
 
 static void	malloc_map(t_world *w)
@@ -32,54 +34,27 @@ static void	malloc_map(t_world *w)
 		error("Malloc error");
 	i = -1;
 	while (++i < w->map.rows)
-	{
 		if (!(w->map.map[i] = malloc(sizeof(int) * w->map.cols)))
 			error("Malloc error");
-	}
 }
 
-void		print_map(t_world *w)
+void		read_map(t_world *w)
 {
-	int i;
-	int j;
-
-	i = -1;
-	while (++i < w->map.rows)
-	{
-		j = -1;
-		while (++j < w->map.cols)
-		{
-			ft_printf("%d", w->map.map[i][j]);
-		}
-		ft_printf("\n");
-	}
-}
-
-void		read_map(t_world *w, char *file)
-{
-	int		fd;
 	char	*line;
 	int		i;
 	int		j;
 	int		counter;
 
-	if ((fd = open(file, O_RDONLY)) == -1)
-		invalid_map();
-	ft_get_next_line(fd, &line);
-	set_dimensions(w, line);
+	set_dimensions(w);
 	malloc_map(w);
 	i = -1;
-	while (++i < w->map.rows && ft_get_next_line(fd, &line) > 0)
+	while (++i < w->map.rows && ft_get_next_line(w->fd, &line) > 0 && (j = -1))
 	{
-		j = -1;
 		counter = 0;
 		while (line[++j] && counter < w->map.cols)
 		{
 			if (ft_isdigit(line[j]))
-			{
-				w->map.map[i][counter] = ft_atoi(line + j);
-				counter++;
-			}
+				w->map.map[i][counter++] = ft_atoi(line + j);
 			while (ft_isdigit(line[j]))
 				j++;
 		}

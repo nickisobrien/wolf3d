@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/28 17:44:17 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/29 12:58:33 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,12 @@ static void	init_player(t_world *w)
 
 static void	init(t_world *w, char *file)
 {
-	(void)file;
+	if ((w->fd = open(file, O_RDONLY)) == -1)
+		invalid_map();
 	w->mlx = mlx_init();
 	w->window = mlx_new_window(w->mlx, WIDTH, HEIGHT, WINDOW_NAME);
 	w->mode = 0;
-	read_map(w, file);
+	read_map(w);
 	init_image(w);
 	init_player(w);
 	load_textures(w);
