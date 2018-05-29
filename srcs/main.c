@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/06 15:46:24 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/28 15:45:05 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 17:44:17 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static void	get_player_pos(t_world *w)
 	int y;
 
 	y = -1;
-	while (++y < w->map.rows / 2)
+	while (++y < w->map.rows)
 	{
 		x = -1;
-		while (++x < w->map.cols / 2)
+		while (++x < w->map.cols)
 		{
-			if (!w->map.map[x][y])
+			if (!w->map.map[y][x])
 			{
 				w->player.posx = x + 0.5;
 				w->player.posy = y + 0.5;
@@ -48,6 +48,7 @@ static void	init_player(t_world *w)
 
 static void	init(t_world *w, char *file)
 {
+	(void)file;
 	w->mlx = mlx_init();
 	w->window = mlx_new_window(w->mlx, WIDTH, HEIGHT, WINDOW_NAME);
 	w->mode = 0;

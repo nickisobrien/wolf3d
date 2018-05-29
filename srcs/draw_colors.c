@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/23 12:49:28 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/25 18:21:05 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 17:46:15 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ static int	get_wall_color(t_world *w, int mapx, int mapy)
 		return (0xf49d41);
 	else if (color == 7)
 		return (0xa0f441);
+	else if (color == 8)
+		return (0x313b4c);
+	else if (color == 9)
+		return (0x44314c);
+	else if (color == 10)
+		return (0xe1f7e2);
 	else
 		return (0xefff1c);
 }
