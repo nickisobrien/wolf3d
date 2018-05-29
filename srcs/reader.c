@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:07:13 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/28 17:52:30 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 18:08:10 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,21 @@ void		read_map(t_world *w, char *file)
 	while (++i < w->map.rows && ft_get_next_line(fd, &line) > 0)
 	{
 		j = -1;
-		counter = -1;
+		counter = 0;
 		while (line[++j] && counter < w->map.cols)
 		{
 			if (ft_isdigit(line[j]))
-				w->map.map[i][++counter] = ft_atoi(line + j);
+			{
+				w->map.map[i][counter] = ft_atoi(line + j);
+				counter++;
+			}
 			while (ft_isdigit(line[j]))
 				j++;
 		}
-		ft_printf("%d\n", counter);
+		if (counter != w->map.cols)
+			invalid_map();
 		ft_strdel(&line);
 	}
+	if (i != w->map.rows)
+		invalid_map();
 }
