@@ -6,7 +6,7 @@
 /*   By: nobrien <nobrien@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/22 16:07:13 by nobrien           #+#    #+#             */
-/*   Updated: 2018/05/28 17:48:09 by nobrien          ###   ########.fr       */
+/*   Updated: 2018/05/28 17:52:30 by nobrien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void		read_map(t_world *w, char *file)
 			while (ft_isdigit(line[j]))
 				j++;
 		}
+		ft_printf("%d\n", counter);
 		ft_strdel(&line);
 	}
 }
