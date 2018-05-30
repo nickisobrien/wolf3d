@@ -107,8 +107,6 @@ typedef struct	s_world
 	int			mode;
 	void		*mlx;
 	void		*window;
-	double		time;
-	double		oldtime;
 	int			gen_texture[8][TEX_WIDTH * TEX_HEIGHT];
 	int			fd;
 }				t_world;
