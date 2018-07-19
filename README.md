@@ -1,5 +1,6 @@
 # wolf3d
 ### A remake of some Wolf3d engine features using raycasting
+###### (using very limited c library functions and strict formatting)
 
 Usage: ./wolf3d [map]  
 ie. ./wolf3d resources/maps/medium_map.w3d  
